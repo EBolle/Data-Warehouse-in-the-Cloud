@@ -66,12 +66,35 @@ CREATE TABLE users (
 """
 
 songs_table_create = """
+CREATE TABLE songs (
+    song_id text primary key,
+    title text,
+    artist_id text,
+    year int,
+    duration real
+);
 """
 
 artists_table_create = """
+CREATE TABLE artists (
+    artist_id text primary key,
+    artist_name text,
+    artist_location text,
+    artist_latitude real,
+    artist_longitude real
+);
 """
 
 time_table_create = """
+CREATE TABLE time (
+    start_time date primary key,
+    hour int,
+    day int,
+    week int,
+    month int,
+    year int,
+    weekday boolean
+);
 """
 
 # STAGING TABLES
@@ -125,9 +148,32 @@ WHERE
 """
 
 songs_table_insert = """
+INSERT INTO songs 
+SELECT song_id
+,    title
+,    artist_id
+,    year
+,    duration
+
+FROM
+    staging_songs
+;
 """
 
 artists_table_insert = """
+INSERT INTO artists
+SELECT artist_id 
+,    max(artist_name) as artist_id
+,    max(artist_location) as location
+,    max(artist_latitude) as latitude
+,    max(artist_longitude) as longitude
+
+FROM
+    staging_songs
+
+GROUP BY
+    artist_id
+;
 """
 
 time_table_insert = """
