@@ -5,15 +5,25 @@ from src.sql_queries import create_table_queries, drop_table_queries
 
 
 def drop_tables(cur, conn):
-    for query in drop_table_queries:
-        cur.execute(query)
-        conn.commit()
+    logger.info("Dropping the tables")
+    for idx, query in enumerate(drop_table_queries, start=1):
+        try:
+            cur.execute(query)
+        except Exception as error:
+            logger.exception(f"ERROR while dropping table {idx}: {error}")
+        else:
+            conn.commit()
 
 
 def create_tables(cur, conn):
-    for query in create_table_queries:
-        cur.execute(query)
-        conn.commit()
+    logger.info("Creating the tables")
+    for idx, query in enumerate(create_table_queries, start=1):
+        try:
+            cur.execute(query)
+        except Exception as error:
+            logger.exception(f"ERROR while creating table {idx}: {error}")
+        else:
+            conn.commit()
 
 
 def main():
