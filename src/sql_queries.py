@@ -74,8 +74,8 @@ CREATE TABLE users (
     first_name text,
     last_name text,
     gender text,
-    level text
-);
+    level text)
+diststyle all;
 """
 
 songs_table_create = """
@@ -84,8 +84,9 @@ CREATE TABLE songs (
     title text,
     artist_id text,
     year int,
-    duration real
-);
+    duration real)
+diststyle all
+;
 """
 
 artists_table_create = """
@@ -94,20 +95,22 @@ CREATE TABLE artists (
     artist_name text,
     artist_location text,
     artist_latitude real,
-    artist_longitude real
-);
+    artist_longitude real)
+diststyle all
+;
 """
 
 time_table_create = """
 CREATE TABLE time (
-    start_time date primary key,
+    start_time date primary key sortkey,
     hour int,
     day int,
     week int,
     month int,
     year int,
-    weekday boolean
-);
+    weekday boolean)
+diststyle even
+;
 """
 
 # STAGING TABLES

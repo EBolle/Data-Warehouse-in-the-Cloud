@@ -11,26 +11,52 @@ but scalability and flexibility as well. By implementing Redshift they gain seve
 - Easy to scale, in a matter of minutes one can launch additional clusters to increase storage and performance
 - It is secure, no need to worry about security or hire very costly specialists
 
-Source: https://www.sisense.com/blog/5-advantages-using-redshift-data-warehouse/
+For more information and as a resource please have a look [here](https://www.sisense.com/blog/5-advantages-using-redshift-data-warehouse/).
 
-### Why this specific shema, underlying queries, and ETL pipeline
+Due to the switch of data warehouse several adjustments to the data definition and manipulation has been made.
 
+### How the data flows
 
+Raw .json that reside on a Amazon S3 are first inserted into 2 staging tables on Redshift. These staging tables are then
+transformed and loaded into a 4 dimension tables and 1 fact table, following a typical star schema.
 
+#### Staging tables
 
-State and justify your database schema design and ETL pipeline
+- staging_events
+- staging_songs
+
+Both staging events are distributed evenly, since they are mostly queried without additional joins. Hence, by evenly
+distributing the data across all the nodes we gain better performance. Since the order of the timestamp (ts) variable
+in staging_events is used in a insertion query, and we expect this order to relevant for possible future tables, we 
+added a sortkey.
+ 
+
 
 - NOTE:: only artists should have a all distribution, I expect - in a real life application - that users, time
 on timestamp level, and songs perhaps change to often? nah... songs should be included as well.. users depends
 on the popularity but should be fine all ->> timestamp NOT since it is related to the user activity, is always
 unique and can quickly expand.
 
-Run the scripts, adjust the schema to Redshift variable types, and create a simple interactive dashboard
-with streamlit, cool! Adjust the README with decent instructions on setting up a cluster and opening a port.
+Run the scripts,  and create a simple interactive dashboard
+with streamlit, cool! Adjust the README with decent 
 
-### The schema
+### The star schema
+
+The dimension tables users, songs, and artists are fully copied to each node using the all distribution strategy.
+There are 2 reasons for this:
+- they are relatively small
+- they are not expected to have very large and frequent upserts, at least not in comparison to time and songplays
+
+The dimension table time is evenly distributed and has a sorted primary key since it is a direct derivative of the fact 
+table. Since it holds an actual timestamp of an event there is no limit to the number of possible rows. Since we expect
+Sparkify to keep growing we need to evenly distribute the data to stay keep acceptable speed.
+
+Naturally, the fact table is evenly distributed due to its size, expected large and frequent upserts, as well as the
+possibility to be queried without joins. 
 
 <img src="https://user-images.githubusercontent.com/49920622/103062485-97e62300-45ae-11eb-908d-4f27cca6f2a6.png">
+
+### Streamlit 
 
 ### Example queries
 
@@ -84,6 +110,8 @@ GROUP BY
 ```
 
 ### Instructions
+
+instructions on setting up a cluster and opening a port.
 
 Before you can run the notebook and scripts, there are a few things you need to do:
 - create and activate a virtual environment
