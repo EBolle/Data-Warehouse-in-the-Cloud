@@ -48,11 +48,24 @@ CREATE TABLE staging_songs (
     song_id text,
     title text,
     duration real,
-    year int
-);
+    year int)
+diststyle even 
+;
 """
 
 songplays_table_create = """
+CREATE TABLE songplays (
+    songplay_id int identity(0, 1) PRIMARY KEY,
+    start_time date sortkey,
+    user_id int,
+    level text,
+    song_id text,
+    artist_id text,
+    session_id int,
+    location text,
+    user_agent text)
+diststyle even
+;
 """
 
 users_table_create = """
@@ -116,6 +129,24 @@ JSON 'auto ignorecase';
 # FINAL TABLES
 
 songplays_table_insert = """
+INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+SELECT timestamp 'epoch' + CAST(events.ts AS BIGINT)/1000 * interval '1 second' AS start_time 
+,    cast(events.userid as int) as user_id
+,    events.level
+,    songs.song_id
+,    artists.artist_id
+,    events.sessionid as session_id
+,    events.location
+,    events.useragent as user_agent
+
+FROM
+    staging_events as events
+    left join artists on artists.name=events.artist
+    left join songs on songs.title=events.song and songs.duration=events.length
+
+WHERE
+    events.page='NextSong'
+;
 """
 
 users_table_insert = """
