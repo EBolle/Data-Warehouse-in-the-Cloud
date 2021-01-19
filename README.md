@@ -1,6 +1,6 @@
 ## Who doesn't want to be on cloud nine?
 
-<img src="https://images.pexels.com/photos/2909083/pexels-photo-2909083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=800">
+<img src="https://images.pexels.com/photos/2909083/pexels-photo-2909083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=400">
 
 Source: https://www.pexels.com
 
