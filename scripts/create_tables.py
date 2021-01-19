@@ -5,7 +5,7 @@ from src.sql_queries import create_table_queries, drop_table_queries
 
 
 def drop_tables(cur, conn):
-    logger.info("Dropping the tables")
+    logger.info("Dropping the tables..")
     for idx, query in enumerate(drop_table_queries, start=1):
         try:
             cur.execute(query)
@@ -16,7 +16,7 @@ def drop_tables(cur, conn):
 
 
 def create_tables(cur, conn):
-    logger.info("Creating the tables")
+    logger.info("Creating the tables..")
     for idx, query in enumerate(create_table_queries, start=1):
         try:
             cur.execute(query)
@@ -41,6 +41,6 @@ def main():
 
 
 if __name__ == "__main__":
-    logger.info("Creating the tables on the Redshift cluster...")
+    logger.info("** create_tables script started **")
     main()
-    logger.info("The tables have been successfully created.")
+    logger.info("** create_tables script finished **")

@@ -43,6 +43,6 @@ def main():
 
 
 if __name__ == "__main__":
-    logger.info("Loading the data into the Redshift cluster...")
+    logger.info("** ETL script started **")
     main()
-    logger.info("The data is successfully loaded.")
+    logger.info("** ETL script finished **")

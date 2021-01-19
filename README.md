@@ -1,8 +1,32 @@
+## Who doesn't want to be on cloud nine?
+
+<img src="https://images.pexels.com/photos/2909083/pexels-photo-2909083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=800">
+
+Source: https://www.pexels.com
+
 ### Why Redshift
-Discuss the purpose of this database in context of the startup, Sparkify, and their analytical goals.
+Due to the exponential growth of Sparkify they decided to move their data once more. Not only is speed of the essence,
+but scalability and flexibility as well. By implementing Redshift they gain several advantages:
+- Very fast querying performance due to Massively Parallel Processing, even with enormous amounts of data
+- Easy to scale, in a matter of minutes one can launch additional clusters to increase storage and performance
+- It is secure, no need to worry about security or hire very costly specialists
+
+Source: https://www.sisense.com/blog/5-advantages-using-redshift-data-warehouse/
 
 ### Why this specific shema, underlying queries, and ETL pipeline
+
+
+
+
 State and justify your database schema design and ETL pipeline
+
+- NOTE:: only artists should have a all distribution, I expect - in a real life application - that users, time
+on timestamp level, and songs perhaps change to often? nah... songs should be included as well.. users depends
+on the popularity but should be fine all ->> timestamp NOT since it is related to the user activity, is always
+unique and can quickly expand.
+
+Run the scripts, adjust the schema to Redshift variable types, and create a simple interactive dashboard
+with streamlit, cool! Adjust the README with decent instructions on setting up a cluster and opening a port.
 
 ### The schema
 
