@@ -213,6 +213,7 @@ GROUP BY
 """
 
 time_table_insert = """
+INSERT INTO time
 SELECT timestamp as start_time
 ,    extract(hour from timestamp) as hour
 ,    extract(day from timestamp) as day
