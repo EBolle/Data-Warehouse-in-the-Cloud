@@ -70,7 +70,7 @@ diststyle even
 
 users_table_create = """
 CREATE TABLE users (
-    userid int primary key,
+    user_id int primary key,
     first_name text,
     last_name text,
     gender text,
@@ -92,10 +92,10 @@ diststyle all
 artists_table_create = """
 CREATE TABLE artists (
     artist_id text primary key,
-    artist_name text,
-    artist_location text,
-    artist_latitude real,
-    artist_longitude real)
+    name text,
+    location text,
+    latitude real,
+    longitude real)
 diststyle all
 ;
 """
@@ -116,17 +116,19 @@ diststyle even
 # STAGING TABLES
 
 staging_events_copy = f"""
-COPY staging_events FROM {LOG_DATA}
+COPY staging_events FROM '{LOG_DATA}'
 CREDENTIALS 'aws_iam_role={ARN}'
 REGION 'us-west-2'
-JSON 'auto ignorecase';
+JSON 'auto ignorecase'
+;
 """
 
 staging_songs_copy = f"""
-COPY staging_events FROM {SONG_DATA}
+COPY staging_songs FROM '{SONG_DATA}'
 CREDENTIALS 'aws_iam_role={ARN}'
 REGION 'us-west-2'
-JSON 'auto ignorecase';
+JSON 'auto ignorecase'
+;
 """
 
 # FINAL TABLES
@@ -232,12 +234,12 @@ FROM
 ;  
 """
 
-# QUERY LISTS
+# QUERY LISTS, make sure songplays_table_insert is the last item of the list
 
 create_table_queries = [staging_events_table_create, staging_songs_table_create, songplays_table_create,
                         users_table_create, songs_table_create, artists_table_create, time_table_create]
 drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplays_table_drop, users_table_drop,
                       songs_table_drop, artists_table_drop, time_table_drop]
 copy_table_queries = [staging_events_copy, staging_songs_copy]
-insert_table_queries = [songplays_table_insert, users_table_insert, songs_table_insert, artists_table_insert,
-                        time_table_insert]
+insert_table_queries = [users_table_insert, songs_table_insert, artists_table_insert, time_table_insert,
+                        songplays_table_insert]

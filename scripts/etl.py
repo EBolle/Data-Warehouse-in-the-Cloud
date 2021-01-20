@@ -5,7 +5,7 @@ from src.sql_queries import copy_table_queries, insert_table_queries
 
 
 def load_staging_tables(cur, conn):
-    logger.info("Loading the staging tables")
+    logger.info("Loading the staging tables..")
     for idx, query in enumerate(copy_table_queries, start=1):
         try:
             cur.execute(query)
@@ -13,11 +13,11 @@ def load_staging_tables(cur, conn):
             logger.exception(f"ERROR while loading staging table {idx}: {error}")
         else:
             conn.commit()
-            logger.info(f"Staging table {idx} / {len(copy_table_queries)} has been successfully loaded.")
+            logger.info(f"Staging table {idx} / {len(copy_table_queries)} has been successfully loaded")
 
 
 def insert_tables(cur, conn):
-    logger.info("Loading the analytical tables")
+    logger.info("Loading the analytical tables..")
     for idx, query in enumerate(insert_table_queries, start=1):
         try:
             cur.execute(query)
@@ -25,7 +25,7 @@ def insert_tables(cur, conn):
             logger.exception(f"ERROR while loading analytical table {idx}: {error}")
         else:
             conn.commit()
-            logger.info(f"Analytical table {idx} / {len(insert_table_queries)} has been successfully loaded.")
+            logger.info(f"Analytical table {idx} / {len(insert_table_queries)} has been successfully loaded")
 
 
 def main():
@@ -44,5 +44,10 @@ def main():
 
 if __name__ == "__main__":
     logger.info("** ETL script started **")
-    main()
-    logger.info("** ETL script finished **")
+    try:
+        main()
+    except Exception as main_error:
+        logger.exception(f"ERROR while executing the main() method: {main_error}")
+        logger.info("** ETL script aborted")
+    else:
+        logger.info("** ETL script finished **")

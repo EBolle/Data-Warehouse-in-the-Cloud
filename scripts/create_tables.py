@@ -41,6 +41,11 @@ def main():
 
 
 if __name__ == "__main__":
-    logger.info("** create_tables script started **")
-    main()
-    logger.info("** create_tables script finished **")
+    logger.info("** CREATE TABLES script started **")
+    try:
+        main()
+    except Exception as main_error:
+        logger.exception(f"ERROR while executing the main() method: {main_error}")
+        logger.info("** CREATE TABLES script aborted")
+    else:
+        logger.info("** CREATE TABLES script finished **")
