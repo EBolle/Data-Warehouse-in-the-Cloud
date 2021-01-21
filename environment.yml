@@ -1,6 +1,7 @@
 name: redshift
 dependencies:
   - jupyter==1.0.0
+  - pandas==1.2.0
   - pip
   - pip:
       - -e .  # executes setup.py -> 'src' becomes a (local) package
@@ -8,3 +9,4 @@ dependencies:
       - ipython-sql==0.4.0
       - psycopg2==2.8.6
       - python-dotenv==0.15.0
+      - streamlit==0.74.1

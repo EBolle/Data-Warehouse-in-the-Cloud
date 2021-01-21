@@ -143,3 +143,5 @@ cython_debug/
 
 # Notebook folder for development and exploration
 /notebooks/
+/src/dashboard_get_started.py
+/src/uber_app.py
