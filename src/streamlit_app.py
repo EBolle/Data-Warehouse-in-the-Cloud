@@ -54,3 +54,31 @@ ax.set_title('Paid users are more active and seem to follow a certain pattern', 
 ax.tick_params(axis='x', labelrotation=45)
 
 st.pyplot(fig)
+
+
+st.subheader('Can the pattern be explained by comparing listening behaviour during the week and the weekend?')
+
+def load_songplays_time_data():
+    songplay_time_query = """
+    SELECT case when time.weekday is True then 'yes' else 'no' end as weekday
+    ,    songplays.level
+    
+    FROM
+        songplays 
+        inner join time on time.start_time=songplays.start_time
+    """
+    songplays_time = pd.read_sql(songplay_time_query, con=conn)
+
+    return songplays_time
+
+songplays_time_data_load_state = st.text('Loading songplays and time data...')
+sp_time = load_songplays_time_data()
+songplays_time_data_load_state.text('Loading songplays and time data...done!')
+
+fig, ax = plt.subplots(ncols=2, figsize=(16, 8))
+
+sns.histplot(ax=ax[0], data=sp_time, x='level', hue='weekday', multiple='dodge', shrink=.8, stat='count')
+sns.histplot(ax=ax[1], data=sp_time, x='level', hue='weekday', multiple='fill', shrink=.8, stat='probability')
+fig.suptitle('Weekdays versus weekend do not explain the listening pattern of paid users', fontsize=16)
+
+st.pyplot(fig)
