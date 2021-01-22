@@ -56,7 +56,7 @@ diststyle even
 songplays_table_create = """
 CREATE TABLE songplays (
     songplay_id int identity(0, 1) PRIMARY KEY,
-    start_time date sortkey,
+    start_time timestamp sortkey,
     user_id int,
     level text,
     song_id text,
@@ -102,7 +102,7 @@ diststyle all
 
 time_table_create = """
 CREATE TABLE time (
-    start_time date primary key sortkey,
+    start_time timestamp primary key sortkey,
     hour int,
     day int,
     week int,

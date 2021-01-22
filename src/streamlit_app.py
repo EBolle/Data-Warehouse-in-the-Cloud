@@ -16,7 +16,6 @@ st.title('Sparkify insights powered by Streamlit')
 
 st.subheader('Where are the artists located?')
 
-
 def load_artists_data():
     artists = pd.read_sql("SELECT * from artists", con=conn)
     row_mask = artists[['latitude', 'longitude']].notna().all(axis=1)
@@ -24,37 +23,34 @@ def load_artists_data():
 
     return artists
 
-
 artists_data_load_state = st.text('Loading artists data...')
 artists_data = load_artists_data()
 artists_data_load_state.text('Loading artists data...done!')
-
 
 st.map(artists_data)
 
 
 st.subheader('Is there a difference in user activity between paying and non-paying customers?')
 
-
 def load_songplays_data():
     songplays = pd.read_sql("SELECT * from songplays", parse_dates=['start_time'], con=conn)
+    songplays['start_time'] = songplays['start_time'].dt.date
     songplays_wide = songplays[['start_time', 'level']].groupby(['start_time', 'level']).agg('size').reset_index()
     songplays_wide.columns = ['date', 'level', 'users']
     songplays_wide = songplays_wide.pivot("date", "level", "users")
 
     return songplays_wide
 
-
 songplays_data_load_state = st.text('Loading songplays data...')
-songplays_wide = load_songplays_data()
+songplays = load_songplays_data()
 songplays_data_load_state.text('Loading songplays data...done!')
 
-fig, ax = plt.subplots(figsize=(20, 8))
+fig, ax = plt.subplots(figsize=(16, 8))
 
-sns.lineplot(ax=ax, data=songplays_wide)
-ax.set_xlabel('time', fontsize=14)
-ax.set_ylabel('number of users', fontsize=14)
-ax.set_title('user activity over time', fontsize=18)
-
+sns.lineplot(ax=ax, data=songplays)
+ax.set_xlabel('date', fontsize=14)
+ax.set_ylabel('songs played', fontsize=14)
+ax.set_title('Paid users are more active and seem to follow a certain pattern', fontsize=18)
+ax.tick_params(axis='x', labelrotation=45)
 
 st.pyplot(fig)
