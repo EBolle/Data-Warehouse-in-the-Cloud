@@ -1,6 +1,6 @@
-"""Contains all the underlying code for the streamlit app, please refer to the README how to launch the app."""
+"""Contains all the underlying code for the streamlit app, please refer to the README on how to launch the app."""
 
-# setup
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import psycopg2
@@ -10,7 +10,6 @@ import streamlit as st
 
 conn = psycopg2.connect(f"postgresql://{DWH_DB_USER}:{DWH_DB_PASSWORD}@{DWH_ENDPOINT}:{DWH_PORT}/{DWH_DB}")
 
-# streamlit app
 
 st.title('Sparkify insights powered by Streamlit')
 
