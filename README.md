@@ -55,6 +55,8 @@ To give you a glimpse of what is possible we developed a small Streamlit dashboa
 - What is the typical listening behaviour throughout a month?
 - Is that different for paying customers? If so, can we explain why that is? 
 
+<img src="https://user-images.githubusercontent.com/49920622/105627366-df263480-5e36-11eb-97d2-1b7d5e3904bd.PNG">
+
 To be able to use the dashboard please read the next section carefully.
 
 ### Instructions
@@ -107,7 +109,7 @@ python scripts/etl.py
 streamlit run src/streamlit_app.py
 ```
 
-One you run the streamlit command your webbrowser will open a new tab with the Streamlit dashboard.
+Once you run the streamlit command your webbrowser will open a new tab with the Streamlit dashboard.
 
 ### Contact
 
