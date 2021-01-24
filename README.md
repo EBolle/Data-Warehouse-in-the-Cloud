@@ -49,13 +49,13 @@ possibility to be queried without joins.
 
 ### Streamlit dashboard
 
+<img src="https://user-images.githubusercontent.com/49920622/105627366-df263480-5e36-11eb-97d2-1b7d5e3904bd.PNG">
+
 ETL processes are interesting, but at the end of the day we want to leverage the insights we generate with the data.
 To give you a glimpse of what is possible we developed a small Streamlit dashboard that gives insights into:
 - Where are the artists located in the world?
 - What is the typical listening behaviour throughout a month?
 - Is that different for paying customers? If so, can we explain why that is? 
-
-<img src="https://user-images.githubusercontent.com/49920622/105627366-df263480-5e36-11eb-97d2-1b7d5e3904bd.PNG">
 
 To be able to use the dashboard please read the next section carefully.
 
