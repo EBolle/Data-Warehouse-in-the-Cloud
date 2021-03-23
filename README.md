@@ -40,7 +40,7 @@ Sparkify to keep growing we need to evenly distribute the data to keep acceptabl
 Naturally, the fact table is evenly distributed due to its size, expected large and frequent upserts, and the
 possibility to be queried without joins. 
 
-<img src=[star_schema]>
+<img src="https://user-images.githubusercontent.com/49920622/103062485-97e62300-45ae-11eb-908d-4f27cca6f2a6.png">
 
 ## Streamlit dashboard
 
@@ -109,7 +109,6 @@ Once you run the streamlit command your webbrowser will open a new tab with the 
 In case of suggestions or remarks please contact the Data Engineering department.
 
 [redshift_resource]: https://www.sisense.com/blog/5-advantages-using-redshift-data-warehouse/
-[star_schema]: "https://user-images.githubusercontent.com/49920622/103062485-97e62300-45ae-11eb-908d-4f27cca6f2a6.png"
 [virtual_envs]: https://realpython.com/python-virtual-environments-a-primer/
 [secrets]: https://pybit.es/persistent-environment-variables.html
 [aws_documentation]: https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html
